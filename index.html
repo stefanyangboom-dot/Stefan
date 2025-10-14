@@ -41,6 +41,26 @@
             animation: fadeIn 0.5s ease-out forwards;
             opacity: 0;
         }
+
+        /* Toast Notification */
+        #toast-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            border-radius: 9999px;
+            font-weight: 500;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, bottom 0.3s;
+        }
+        #toast-notification.show {
+            opacity: 1;
+            visibility: visible;
+            bottom: 40px;
+        }
     </style>
 </head>
 
@@ -211,7 +231,7 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
                     <div class="p-4 bg-white rounded-lg border border-gray-200">
-                        <p class="text-4xl font-extrabold text-accent">1000 OOTD</p>
+                        <p class="text-4xl font-extrabold text-accent">10000 OOTD</p>
                         <p class="text-gray-600 mt-1" data-key="lottery_weekly_prize">Weekly Prize</p>
                     </div>
                     <div class="p-4 bg-white rounded-lg border border-gray-200">
@@ -230,7 +250,7 @@
                     <p id="lottery-countdown" class="text-5xl font-extrabold text-red-600 bg-white inline-block px-6 py-3 rounded-xl shadow-inner border border-red-200">
                         00D : 00H : 00M : 00S
                     </p>
-                    <div id="draw-button-container" class="mt-4" style="display: none;">
+                    <div id="draw-button-container" class="mt-4">
                         <button id="draw-lottery-btn" class="px-8 py-4 bg-red-600 text-white font-bold rounded-full shadow-lg hover:bg-red-700 transition duration-300 transform hover:scale-105" data-key="lottery_draw_now">
                             Draw Now!
                         </button>
@@ -310,6 +330,11 @@
         <p class="text-gray-500 text-sm" data-key="footer_copyright">© 2024 OOTD Ecosystem. All Rights Reserved. | Designed by Exploding Starball</p>
     </footer>
     
+    <!-- Toast Notification Element -->
+    <div id="toast-notification" class="bg-gray-800 text-white shadow-lg">
+        <span id="toast-message"></span>
+    </div>
+
     <script>
         tailwind.config = {
             theme: {
@@ -376,6 +401,9 @@
                 'lottery_countdown_desc': 'Next Draw In:',
                 'lottery_draw_now': 'Draw Now!',
                 'lottery_winners_title': '🎉 Lucky Winners! 🎉',
+                'lottery_time_to_draw': 'Time to Draw!',
+                'toast_admin_enabled': 'Admin mode enabled.',
+                'toast_admin_required': 'Only admins can initiate the draw.',
                 'wp_header': '5. OOTD Whitepaper (Core Abstract)',
                 'wp_abstract': 'Abstract',
                 'wp_abstract_text': 'OOTD is a decentralized fashion ecosystem built on AI and blockchain technology. Through the OOTD Token and NFTs, we aim to solve the core pain points of traditional fashion—poor user experience, inefficient marketing, and data silos—to create a fair, transparent, and efficient digital fashion world.',
@@ -437,6 +465,9 @@
                 'lottery_countdown_desc': '下次开奖倒计时:',
                 'lottery_draw_now': '立即开奖!',
                 'lottery_winners_title': '🎉 幸运中奖者! 🎉',
+                'lottery_time_to_draw': '开奖时间到!',
+                'toast_admin_enabled': '管理员模式已激活。',
+                'toast_admin_required': '只有管理员才能开始抽奖。',
                 'wp_header': '5. OOTD 白皮书（核心摘要）',
                 'wp_abstract': '摘要',
                 'wp_abstract_text': 'OOTD是一个基于AI和区块链技术的去中心化时尚生态系统。通过OOTD代币和NFT，我们旨在解决传统时尚的核心痛点——用户体验差、营销效率低和数据孤岛——以创建一个公平、透明、高效的数字时尚世界。',
@@ -454,6 +485,8 @@
         };
 
         let currentLang = 'en';
+        let adminClickCount = 0;
+        let isAdmin = false;
 
         const mockParticipants = [
             '0x1A2b...c3d4', '7iJk...LmnP', '0x5E6f...g7h8', '9oQr...StuV', '0x9W0x...y1z2',
@@ -463,6 +496,18 @@
             'N2oP...qR3s', '0xT4uV...wX5y', 'Z6aB...cD7e', '0xF8gH...iJ9k', 'L0mN...oP1q',
             'R2sT...uV3w', '0xX4yZ...aB5c', 'D6eF...gH7i', '0xJ8kL...mN9o', 'P0qR...sT1u'
         ];
+        
+        // --- Toast Notification Logic ---
+        const showToast = (messageKey) => {
+            const toast = document.getElementById('toast-notification');
+            const messageSpan = document.getElementById('toast-message');
+            messageSpan.innerText = languageData[currentLang][messageKey] || messageKey;
+            
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000); // Hide after 3 seconds
+        };
 
         // Function to update the countdown timer
         const updateCountdown = () => {
@@ -482,7 +527,7 @@
             let difference = targetDate.getTime() - now.getTime();
 
             const countdownElement = document.getElementById('lottery-countdown');
-            const drawButtonContainer = document.getElementById('draw-button-container');
+            const drawButton = document.getElementById('draw-lottery-btn');
 
             if (difference > 0) {
                 const days = Math.floor(difference / (1000 * 60 * 60 * 24));
@@ -490,9 +535,12 @@
                 const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((difference % (1000 * 60)) / 1000);
                 countdownElement.innerText = `${days}D : ${hours}H : ${minutes}M : ${seconds}S`;
+                drawButton.classList.remove('animate-pulse'); // Ensure pulse is removed if countdown resets
             } else {
-                countdownElement.style.display = 'none';
-                drawButtonContainer.style.display = 'block';
+                countdownElement.innerText = languageData[currentLang]['lottery_time_to_draw'] || 'Time to Draw!';
+                countdownElement.classList.remove('text-red-600');
+                countdownElement.classList.add('text-green-600');
+                drawButton.classList.add('animate-pulse');
             }
         };
 
@@ -500,8 +548,7 @@
         const runLottery = () => {
             const winnersContainer = document.getElementById('winners-container');
             const winnersList = document.getElementById('winners-list');
-            const drawButton = document.getElementById('draw-lottery-btn');
-
+            
             winnersContainer.style.display = 'block';
             winnersList.innerHTML = ''; // Clear previous winners
             
@@ -509,20 +556,17 @@
             const shuffled = mockParticipants.sort(() => 0.5 - Math.random());
             // Get first 10 as winners
             const winners = shuffled.slice(0, 10);
+            const prizePerWinner = 10000 / winners.length;
 
             winners.forEach((winner, index) => {
                 setTimeout(() => {
                     const li = document.createElement('li');
                     li.className = 'winner-item p-2 bg-gray-50 rounded shadow-sm flex justify-between items-center';
                     li.style.animationDelay = `${index * 100}ms`;
-                    li.innerHTML = `<span><span class="font-bold text-accent mr-2">#${index + 1}</span> ${winner}</span><span class="text-green-500">🏆</span>`;
+                    li.innerHTML = `<span><span class="font-bold text-accent mr-2">#${index + 1}</span> ${winner}</span><span class="font-semibold text-green-600">+${prizePerWinner} OOTD 🏆</span>`;
                     winnersList.appendChild(li);
                 }, index * 200); // Stagger the animation
             });
-
-            drawButton.disabled = true;
-            drawButton.classList.add('cursor-not-allowed', 'bg-gray-400', 'hover:bg-gray-400');
-            drawButton.innerText = 'Draw Complete!';
         };
 
         // Function to translate the page content
@@ -618,12 +662,32 @@
              // Wallet connect event
             document.getElementById('connectWalletButton').addEventListener('click', connectWallet);
             
-            // Lottery draw event
-            document.getElementById('draw-lottery-btn').addEventListener('click', runLottery);
+            // Lottery draw event (with admin check)
+            document.getElementById('draw-lottery-btn').addEventListener('click', () => {
+                if (isAdmin) {
+                    runLottery();
+                } else {
+                    showToast('toast_admin_required');
+                }
+            });
+
+            // Admin mode activation
+            document.querySelector('footer').addEventListener('click', () => {
+                if (isAdmin) return;
+                adminClickCount++;
+                if (adminClickCount >= 5) {
+                    isAdmin = true;
+                    showToast('toast_admin_enabled');
+                    adminClickCount = 0;
+                }
+            });
         });
     </script>
 </body>
 </html>
+
+
+
 
 
 
