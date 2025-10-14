@@ -72,7 +72,7 @@
             <div class="flex justify-between items-center h-16">
                 <!-- Logo/Title -->
                 <div class="flex-shrink-0">
-                    <span class="text-2xl font-extrabold text-accent">OOTD</span>
+                    <span id="logo" class="text-2xl font-extrabold text-accent">OOTD</span>
                     <span class="text-sm ml-2 text-gray-500 hidden sm:inline" data-key="logo_subtitle">| AI Fashion Ecosystem</span>
                 </div>
                 <!-- Navigation Links -->
@@ -485,7 +485,6 @@
         };
 
         let currentLang = 'en';
-        let adminClickCount = 0;
         let isAdmin = false;
 
         const mockParticipants = [
@@ -630,6 +629,13 @@
         };
 
 
+        // --- Admin Mode Activation (Secure Method) ---
+        // The console-based activation is replaced with a secret sequence.
+        // Sequence: Click the footer 4 times, then click the "OOTD" logo in the header.
+        // 
+        // (安全提示：管理员激活方式已改为秘密序列。)
+        // (激活方式：点击页面底部页脚4次，然后点击顶部的OOTD标志1次。)
+
         // Initialize and Event Listeners
         document.addEventListener('DOMContentLoaded', () => {
             // Set initial language to English
@@ -671,21 +677,34 @@
                 }
             });
 
-            // Admin mode activation
-            document.querySelector('footer').addEventListener('click', () => {
-                if (isAdmin) return;
-                adminClickCount++;
-                if (adminClickCount >= 5) {
-                    isAdmin = true;
-                    showToast('toast_admin_enabled');
-                    adminClickCount = 0;
-                }
-            });
+            // --- Admin Mode Activation (Secret Sequence) ---
+            let footerClickCount = 0;
+            const footerElement = document.querySelector('footer');
+            const logoElement = document.getElementById('logo');
+
+            if (footerElement && logoElement) {
+                footerElement.addEventListener('click', () => {
+                    if (isAdmin) return;
+                    footerClickCount++;
+                    if (footerClickCount > 4) {
+                        footerClickCount = 0; // Reset if clicked too many times
+                    }
+                });
+
+                logoElement.addEventListener('click', () => {
+                    if (isAdmin) return;
+                    if (footerClickCount === 4) {
+                        isAdmin = true;
+                        showToast('toast_admin_enabled');
+                    }
+                    // Reset count regardless of success
+                    footerClickCount = 0;
+                });
+            }
         });
     </script>
 </body>
 </html>
-
 
 
 
