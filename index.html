@@ -179,7 +179,7 @@
                         <span class="text-gray-600" data-key="token_supply">Total Supply (Total Supply):</span>
                         <span class="font-mono text-gray-900">1,000,000,000</span>
                     </div>
-                    <div class="flex justify-between border-b border-gray-200 pb-2">
+                    <div class="flex justify-between border-b border-gray-200 pb-2 hidden">
                         <span class="text-gray-600" data-key="token_price">Current Price (Simulated Price):</span>
                         <span class="font-mono text-green-600">0.00042 USD</span>
                     </div>
@@ -188,11 +188,11 @@
                         <span class="font-mono text-gray-900">Utility & Governance</span>
                     </div>
                     <!-- New Contract Address Field for credibility -->
-                    <div class="flex justify-between border-b border-gray-200 pb-2">
+                    <div class="flex justify-between border-b border-gray-200 pb-2 hidden">
                         <span class="text-gray-600" data-key="token_contract_address">Contract Address:</span>
                         <span class="font-mono text-sm text-gray-500 truncate">7hX...2mQ (Placeholder)</span>
                     </div>
-                    <div class="flex justify-between border-b border-gray-200 pb-2">
+                    <div class="flex justify-between border-b border-gray-200 pb-2 hidden">
                         <span class="text-gray-600" data-key="token_network">Network:</span>
                         <span class="font-mono text-gray-900">Solana (Primary)</span>
                     </div>
@@ -202,22 +202,22 @@
 
                 <!-- Live Purchase Interface Placeholder -->
                 <div class="bg-white p-6 rounded-lg shadow-inner space-y-4 border border-gray-200">
-                    <h3 class="text-2xl font-semibold text-gray-900 mb-4" data-key="token_live_buy_header">Live Token Purchase (Swap)</h3>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4" data-key="token_live_buy_header">Token Purchase (Coming Soon)</h3>
                     
                     <!-- Wallet Connection UI -->
-                    <button id="connectWalletButton" class="w-full py-3 border border-accent text-accent font-bold rounded-lg hover:bg-accent hover:text-white transition duration-300">
-                        <span data-key="token_connect_wallet">Connect Wallet</span>
+                    <button id="connectWalletButton" class="w-full py-3 border border-gray-300 text-gray-500 font-bold rounded-lg bg-gray-200 cursor-not-allowed" disabled>
+                        <span data-key="token_connect_wallet">Coming Soon</span>
                     </button>
 
                     <!-- Swap Widget Placeholder -->
                     <div id="swapWidgetPlaceholder" class="w-full h-64 bg-gray-100 rounded-lg flex items-center justify-center text-center text-gray-500 border border-dashed border-gray-400 p-4">
                         <p data-key="token_swap_placeholder">
-                            [Swap Widget Placeholder: Actual Raydium/DEX Swap interface will load here once integrated. Connect your wallet to proceed.]
+                            [Swap functionality is not yet available. Please check back later.]
                         </p>
                     </div>
 
                     <p class="text-xs text-red-500 pt-2 text-center" data-key="token_real_disclaimer">
-                        *Important: OOTD is a utility token. Ensure your wallet is connected to the correct network (Solana/EVM) before initiating a swap.
+                        *Important: OOTD is a utility token.
                     </p>
                 </div>
 
@@ -383,10 +383,10 @@
                 'token_fuel_desc': 'OOTD Tokens are the core fuel of the OOTD ecosystem, used for service payments, community incentives, and governance participation.',
                 'token_contract_address': 'Contract Address:',
                 'token_network': 'Network:',
-                'token_live_buy_header': 'Live Token Purchase (Swap)',
-                'token_connect_wallet': 'Connect Wallet',
-                'token_swap_placeholder': '[Swap Widget Placeholder: Actual Raydium/DEX Swap interface will load here once integrated. Connect your wallet to proceed.]',
-                'token_real_disclaimer': '*Important: OOTD is a utility token. Ensure your wallet is connected to the correct network (Solana/EVM) before initiating a swap.',
+                'token_live_buy_header': 'Token Purchase (Coming Soon)',
+                'token_connect_wallet': 'Coming Soon',
+                'token_swap_placeholder': '[Swap functionality is not yet available. Please check back later.]',
+                'token_real_disclaimer': '*Important: OOTD is a utility token.',
                 'lottery_header': '4. Community Incentive: OOTD Token Lottery',
                 'lottery_weekly_prize': 'Weekly Prize',
                 'lottery_prize_time': 'Drawing Time',
@@ -447,10 +447,10 @@
                 'token_fuel_desc': 'OOTD 代币是 OOTD 生态系统的核心燃料，用于支付服务、激励社区贡献和参与治理。',
                 'token_contract_address': '合约地址:',
                 'token_network': '网络:',
-                'token_live_buy_header': '代币实时购买 (Swap)',
-                'token_connect_wallet': '连接钱包',
-                'token_swap_placeholder': '[Swap Widget 占位符：实际 Raydium/DEX 兑换界面集成后将在此处加载。请连接您的钱包以继续。]',
-                'token_real_disclaimer': '*重要提示：OOTD为生态实用型代币。在发起兑换前，请确保您的钱包已连接到正确的网络（Solana/EVM）。',
+                'token_live_buy_header': '代币购买 (暂未开放)',
+                'token_connect_wallet': '暂未开放',
+                'token_swap_placeholder': '[兑换功能暂未开放，敬请期待。]',
+                'token_real_disclaimer': '*重要提示：OOTD为生态实用型代币。',
                 'lottery_header': '4. 社区激励：OOTD 代币抽奖',
                 'lottery_weekly_prize': '每周奖金',
                 'lottery_prize_time': '准时开奖',
@@ -584,6 +584,8 @@
         
         // --- Wallet Connection Logic ---
         const connectWallet = async () => {
+            // This button is disabled in the current HTML, so this function won't be called.
+            // Keeping the logic here for future re-enabling.
             const connectButton = document.getElementById('connectWalletButton');
             const buttonSpan = connectButton.querySelector('span');
 
@@ -591,22 +593,16 @@
                 let provider;
                 let accounts;
 
-                // 1. Try Phantom (Solana)
                 if ('phantom' in window) {
                     provider = window.phantom?.solana;
                     if (provider?.isPhantom) {
                         const resp = await provider.connect();
                         accounts = [resp.publicKey.toString()];
-                        console.log('Connected to Phantom:', accounts[0]);
                     }
-                }
-                
-                // 2. If Phantom not found or fails, try MetaMask (Ethereum)
-                if (!accounts && 'ethereum' in window) {
+                } else if ('ethereum' in window) {
                     provider = window.ethereum;
                     if(provider.isMetaMask){
                          accounts = await provider.request({ method: 'eth_requestAccounts' });
-                         console.log('Connected to MetaMask:', accounts[0]);
                     }
                 }
 
@@ -615,11 +611,8 @@
                     const shortAddress = `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
                     buttonSpan.innerText = `Connected: ${shortAddress}`;
                     connectButton.disabled = true;
-                    connectButton.classList.add('cursor-not-allowed', 'bg-gray-200', 'hover:bg-gray-200', 'text-gray-500');
-                     connectButton.classList.remove('hover:bg-accent', 'hover:text-white');
                 } else {
                     buttonSpan.innerText = 'No compatible wallet found';
-                    console.error('No compatible wallet (Phantom or MetaMask) found.');
                 }
 
             } catch (error) {
@@ -632,9 +625,7 @@
         // --- Admin Mode Activation (Secure Method) ---
         // The console-based activation is replaced with a secret sequence.
         // Sequence: Click the footer 4 times, then click the "OOTD" logo in the header.
-        // 
-        // (安全提示：管理员激活方式已改为秘密序列。)
-        // (激活方式：点击页面底部页脚4次，然后点击顶部的OOTD标志1次。)
+        let footerClickCount = 0;
 
         // Initialize and Event Listeners
         document.addEventListener('DOMContentLoaded', () => {
@@ -643,7 +634,7 @@
 
             // Start countdown timer
             updateCountdown();
-            setInterval(updateCountdown, 1000); // Update every second
+            setInterval(updateCountdown, 1000);
 
             // Smooth scroll for navigation
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -651,12 +642,9 @@
                     e.preventDefault();
                     const href = this.getAttribute('href');
                     if (href && href !== '#') {
-                        const targetElement = document.querySelector(href);
-                        if (targetElement) {
-                             targetElement.scrollIntoView({
-                                behavior: 'smooth'
-                            });
-                        }
+                        document.querySelector(href).scrollIntoView({
+                            behavior: 'smooth'
+                        });
                     }
                 });
             });
@@ -664,9 +652,6 @@
             // Language switcher event
             document.getElementById('lang-switcher-en').addEventListener('click', () => setLanguage('en'));
             document.getElementById('lang-switcher-zh').addEventListener('click', () => setLanguage('zh'));
-            
-             // Wallet connect event
-            document.getElementById('connectWalletButton').addEventListener('click', connectWallet);
             
             // Lottery draw event (with admin check)
             document.getElementById('draw-lottery-btn').addEventListener('click', () => {
@@ -677,8 +662,7 @@
                 }
             });
 
-            // --- Admin Mode Activation (Secret Sequence) ---
-            let footerClickCount = 0;
+            // Admin Mode Activation
             const footerElement = document.querySelector('footer');
             const logoElement = document.getElementById('logo');
 
@@ -686,9 +670,7 @@
                 footerElement.addEventListener('click', () => {
                     if (isAdmin) return;
                     footerClickCount++;
-                    if (footerClickCount > 4) {
-                        footerClickCount = 0; // Reset if clicked too many times
-                    }
+                    if (footerClickCount > 4) footerClickCount = 0;
                 });
 
                 logoElement.addEventListener('click', () => {
@@ -697,7 +679,6 @@
                         isAdmin = true;
                         showToast('toast_admin_enabled');
                     }
-                    // Reset count regardless of success
                     footerClickCount = 0;
                 });
             }
@@ -705,9 +686,4 @@
     </script>
 </body>
 </html>
-
-
-
-
-
 
