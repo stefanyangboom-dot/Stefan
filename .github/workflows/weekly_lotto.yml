@@ -1,0 +1,39 @@
+name: OOTD Weekly Lottery
+
+# 触发条件
+on:
+  schedule:
+    # 计划任务：每周二纽约时间 21:30 (约为 UTC 时间周三 01:30)
+    # Cron 语法: 分 时 日 月 周 (3 代表周三)
+    - cron: '30 1 * * 3'
+  
+  # 允许在 GitHub 网页上手动点击按钮立即运行 (用于测试)
+  workflow_dispatch:
+
+jobs:
+  run-lottery:
+    runs-on: ubuntu-latest  # 使用最新的 Ubuntu 服务器
+
+    steps:
+    # 1. 拉取代码
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # 2. 安装 Node.js 环境 (版本 18)
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    # 3. 安装依赖包 (根据 package.json)
+    - name: Install dependencies
+      run: npm install
+
+    # 4. 运行抽奖脚本
+    - name: Run Lottery Script
+      env:
+        # 这里引用您在 GitHub Settings -> Secrets 里设置的密钥
+        # 千万不要把私钥明文写在这里！
+        RPC_URL: ${{ secrets.RPC_URL }}
+        PAYER_PRIVATE_KEY: ${{ secrets.PAYER_PRIVATE_KEY }}
+      run: node ootd_lottery_bot.js
