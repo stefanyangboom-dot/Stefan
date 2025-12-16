@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-key="title">OOTD - The Rebirth: AI Fashion & Crypto Future</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Scrollbar for a sleek look (Light Theme) */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f0f0f0; }
+        ::-webkit-scrollbar-thumb { background: #bdbdbd; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #9e9e9e; }
+        
+        .section-header {
+            border-bottom: 1px solid #e0e0e0; /* Subtle light border */
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            color: #1f2937; /* Dark text */
+        }
+
+        /* Responsive Navbar Sticky Fix */
+        .navbar-sticky {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        /* Custom Hover Effect for CTA Button */
+        .cta-button:hover {
+            box-shadow: 0 4px 15px rgba(30, 58, 138, 0.4); /* Accent color glow */
+        }
+        
+        /* Winner animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .winner-item {
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        /* Toast Notification (New Feature) */
+        #toast-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            border-radius: 9999px;
+            font-weight: 500;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, bottom 0.3s;
+            background-color: #1f2937;
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        #toast-notification.show {
+            opacity: 1;
+            visibility: visible;
+            bottom: 40px;
+        }
+    </style>
+</head>
+
+<body class="bg-primary-bg text-gray-800 font-sans min-h-screen">
+
+    <!-- Navbar (White background, subtle shadow) -->
+    <nav class="navbar-sticky bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo/Title -->
+                <div class="flex-shrink-0 cursor-pointer" id="logo">
+                    <span class="text-2xl font-extrabold text-accent">OOTD</span>
+                    <span class="text-sm ml-2 text-gray-500 hidden sm:inline" data-key="logo_subtitle">| AI Fashion Ecosystem</span>
+                </div>
+                <!-- Navigation Links -->
+                <div class="hidden sm:flex sm:space-x-4">
+                    <a href="#hero" class="text-gray-700 hover:text-accent px-3 py-2 rounded-md font-medium transition duration-150" data-key="nav_home">Home</a>
+                    <a href="#prototype" class="text-gray-700 hover:text-accent px-3 py-2 rounded-md font-medium transition duration-150" data-key="nav_prototype">Prototype</a>
+                    <a href="#token" class="text-gray-700 hover:text-accent px-3 py-2 rounded-md font-medium transition duration-150" data-key="nav_token">OOTD Token</a>
+                    <a href="#lottery" class="text-gray-700 hover:text-accent px-3 py-2 rounded-md font-medium transition duration-150" data-key="nav_lottery">Token Lottery</a>
+                    <a href="#whitepaper" class="text-gray-700 hover:text-accent px-3 py-2 rounded-md font-medium transition duration-150" data-key="nav_whitepaper">Whitepaper</a>
+                    <!-- ADDED: Novel Link -->
+                    <a href="https://www.wattpad.com/story/404832076-blade-of-data" target="_blank" class="text-gray-700 hover:text-accent px-3 py-2 rounded-md font-medium transition duration-150" data-key="nav_novel">Novel</a>
+                    <a href="#contact" class="text-gray-700 hover:text-accent px-3 py-2 rounded-md font-medium transition duration-150" data-key="nav_contact">Contact</a>
+                </div>
+                <!-- Right Side CTA/Links -->
+                <div class="flex items-center space-x-4">
+                    <!-- Language Selector -->
+                    <div class="flex items-center space-x-2">
+                        <button id="lang-switcher-en" class="text-xs font-bold px-2 py-1 rounded-full border border-gray-300 bg-gray-100 text-gray-700 hover:bg-gray-200 transition duration-150">EN</button>
+                        <button id="lang-switcher-zh" class="text-xs font-bold px-2 py-1 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-200 transition duration-150">ZH</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+
+        <!-- 1. Hero Section -->
+        <section id="hero" class="text-center py-20 bg-secondary-bg rounded-xl shadow-inner mb-12 border border-gray-100">
+            <h1 class="text-6xl sm:text-8xl font-extrabold text-gray-900 mb-4 leading-tight" data-key="hero_title">
+                Revolutionize Fashion, Redefine Self-Worth
+            </h1>
+            <p class="text-xl sm:text-3xl text-accent mb-8 font-light" data-key="hero_subtitle">
+                OOTD: THE REBIRTH
+            </p>
+            <p class="max-w-3xl mx-auto text-gray-600 mb-10" data-key="hero_description">
+                OOTD is more than an App; it's an AI-driven, decentralized fashion community. Leveraging blockchain for data rights, OOTD Tokens incentivize every outfit share and design, transforming your virtual identity into a valuable digital asset.
+            </p>
+            <!-- UPDATED: Trade on DEX Button -->
+            <a href="https://dexscreener.com/solana/DY655y1CFNBo6i1ZQVpo2ViUqbGy4tba23L2ME5Apump" target="_blank" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full shadow-lg text-white bg-accent hover:bg-blue-800 transition duration-300 transform hover:scale-[1.02] cta-button" data-key="hero_cta">
+                Trade on DEX (DexScreener)
+            </a>
+        </section>
+
+        <!-- 2. App Prototype Mockup -->
+        <section id="prototype" class="py-12">
+            <h2 class="text-4xl font-bold section-header" data-key="proto_header">2. Hyper-Realistic 3D Body Scanning & Try-On</h2>
+            <p class="text-gray-600 mb-10 text-center max-w-4xl mx-auto" data-key="proto_description">The next generation of OOTD: Utilizing phone cameras for instant 3D body mapping, creating a personalized avatar for hyper-realistic and perfectly fitted virtual try-ons. This eliminates all sizing guesswork.</p>
+            
+            <div class="grid grid-cols-1 gap-8 items-center bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+                <!-- Main Image -->
+                <div class="text-center">
+                    <!-- 确保图片地址正确，这是您旧版代码里的图片 -->
+                    <img id="prototype-image" src="https://i.imgur.com/kEw4J6h.jpeg" alt="3D Body Scanning Prototype" class="w-full h-auto rounded-xl shadow-2xl max-w-4xl mx-auto" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/f5f5f7/1f2937?text=Image+Loading+Error';">
+                </div>
+
+                <!-- 4-Step Process -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-4 text-center">
+                    <div class="space-y-1">
+                        <span class="text-2xl font-extrabold text-accent">1. SCAN</span>
+                        <p class="text-sm font-semibold text-gray-700" data-key="proto_step1_label">Input: Phone Camera Body Scan</p>
+                        <p class="text-xs text-gray-500">AI-driven skeletal recognition.</p>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="text-2xl font-extrabold text-accent">2. MAP</span>
+                        <p class="text-sm font-semibold text-gray-700" data-key="proto_step2_label">3D Body Mapping & Data Encryption</p>
+                        <p class="text-xs text-gray-500">Secure, on-chain data verification.</p>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="text-2xl font-extrabold text-accent">3. AVATAR</span>
+                        <p class="text-sm font-semibold text-gray-700" data-key="proto_step3_label">Personalized 3D Avatar Generation</p>
+                        <p class="text-xs text-gray-500">Sub-millimeter accuracy modeling.</p>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="text-2xl font-extrabold text-accent">4. WEAR</span>
+                        <p class="text-sm font-semibold text-gray-700" data-key="proto_step4_label">Output: Hyper-Realistic 3D Try-On Result</p>
+                        <p class="text-xs text-gray-500">Dynamic fabric draping simulation.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Download CTA -->
+            <div class="mt-8 text-center">
+                 <button class="px-6 py-2 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-100 transition duration-300" data-key="proto_download_cta">
+                     Download on App Store & Google Play (Coming Soon)
+                 </button>
+            </div>
+        </section>
+        
+        <!-- 3. OTD Token (Updated with Real CA & DEX Button) -->
+        <section id="token" class="py-12">
+            <h2 class="text-4xl font-bold section-header" data-key="token_header">3. OOTD Token: The Gateway to the Ecosystem</h2>
+            <div class="bg-secondary-bg p-8 rounded-xl shadow-lg border border-gray-100 grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                
+                <!-- Token Info -->
+                <div class="space-y-4">
+                    <h3 class="text-2xl font-semibold text-accent mb-4" data-key="token_overview">OOTD Tokenomics Overview</h3>
+                    <div class="flex justify-between border-b border-gray-200 pb-2">
+                        <span class="text-gray-600" data-key="token_name">Token Name (Symbol):</span>
+                        <span class="font-mono text-gray-900">OOTD</span>
+                    </div>
+                    <div class="flex justify-between border-b border-gray-200 pb-2">
+                        <span class="text-gray-600" data-key="token_supply">Total Supply:</span>
+                        <span class="font-mono text-gray-900">1,000,000,000</span>
+                    </div>
+                    
+                    <!-- ADDED: Live Status -->
+                    <div class="flex justify-between border-b border-gray-200 pb-2">
+                        <span class="text-gray-600">Status:</span>
+                        <span class="font-bold text-green-600 animate-pulse">● LIVE TRADING</span>
+                    </div>
+
+                    <!-- ADDED: Real Contract Address -->
+                    <div class="flex flex-col border-b border-gray-200 pb-2">
+                        <span class="text-gray-600 mb-1" data-key="token_contract_address">Contract Address (CA):</span>
+                        <span class="font-mono text-xs sm:text-sm text-gray-900 font-bold break-all bg-gray-200 p-2 rounded cursor-pointer hover:bg-gray-300 transition" onclick="navigator.clipboard.writeText(this.innerText); showToast('Address Copied!');">
+                            DY655y1CFNBo6i1ZQVpo2ViUqbGy4tba23L2ME5Apump
+                        </span>
+                        <span class="text-xs text-gray-400 mt-1" data-key="click_to_copy">(Click to Copy)</span>
+                    </div>
+
+                    <div class="flex justify-between border-b border-gray-200 pb-2">
+                        <span class="text-gray-600" data-key="token_network">Network:</span>
+                        <span class="font-mono text-gray-900">Solana (Primary)</span>
+                    </div>
+
+                    <p class="text-sm text-gray-500 pt-4" data-key="token_fuel_desc">OOTD Tokens are the core fuel of the OOTD ecosystem, used for service payments, community incentives, and governance participation.</p>
+                </div>
+
+                <!-- Live Purchase Interface (DEX Button) -->
+                <div class="bg-white p-6 rounded-lg shadow-inner space-y-4 border border-gray-200">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4" data-key="token_live_buy_header">Trade $OOTD Now</h3>
+                    
+                    <!-- DexScreener Button -->
+                    <a href="https://dexscreener.com/solana/DY655y1CFNBo6i1ZQVpo2ViUqbGy4tba23L2ME5Apump" target="_blank" class="w-full py-4 flex items-center justify-center border border-transparent text-white font-bold rounded-lg bg-accent hover:bg-blue-800 transition shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                        <span data-key="btn_view_chart">Buy on DEX (DexScreener)</span>
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    </a>
+
+                    <div id="swapWidgetPlaceholder" class="w-full h-32 bg-gray-100 rounded-lg flex items-center justify-center text-center text-gray-500 border border-dashed border-gray-400 p-4 mt-4">
+                        <p class="text-xs" data-key="token_swap_placeholder">
+                            [Raydium Swap Widget Integration Pending]
+                        </p>
+                    </div>
+
+                    <p class="text-xs text-gray-500 pt-2 text-center" data-key="token_real_disclaimer">
+                        *Contract Verified. Liquidity Locked.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+        
+        <!-- 4. Token Lottery (Updated with Dynamic Features) -->
+        <section id="lottery" class="py-12">
+            <h2 class="text-4xl font-bold section-header" data-key="lottery_header">4. Community Incentive: OOTD Token Lottery</h2>
+            <div class="bg-secondary-bg p-8 rounded-xl shadow-lg border border-gray-100 space-y-6">
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="p-4 bg-white rounded-lg border border-gray-200">
+                        <p class="text-4xl font-extrabold text-accent">1000 OOTD</p>
+                        <p class="text-gray-600 mt-1" data-key="lottery_weekly_prize">Weekly Prize</p>
+                    </div>
+                    <div class="p-4 bg-white rounded-lg border border-gray-200">
+                        <p class="text-xl font-extrabold text-gray-900" id="lottery-time-display">Tue 9:30 PM (NY)</p>
+                        <p class="text-sm text-gray-600 mt-1" data-key="lottery_prize_time">Drawing Time</p>
+                    </div>
+                    <div class="p-4 bg-white rounded-lg border border-gray-200">
+                        <p class="text-xl font-extrabold text-gray-900" data-key="lottery_participants">All Holders</p>
+                        <p class="text-sm text-gray-600 mt-1" data-key="lottery_entry">Automatic Entry</p>
+                    </div>
+                </div>
+
+                <!-- Countdown & Admin Button -->
+                <div class="pt-4 text-center">
+                    <p class="text-2xl font-semibold text-gray-700 mb-2" data-key="lottery_countdown_desc">Next Draw In:</p>
+                    <p id="lottery-countdown" class="text-5xl font-extrabold text-red-600 bg-white inline-block px-6 py-3 rounded-xl shadow-inner border border-red-200">
+                        00 : 00 : 00 : 00
+                    </p>
+                    
+                    <!-- Admin Draw Button (Hidden by default, shown via Admin Mode) -->
+                    <div class="mt-6">
+                        <button id="draw-lottery-btn" class="px-8 py-3 bg-gray-400 text-white font-bold rounded-full shadow cursor-not-allowed transition duration-300" disabled>
+                            Waiting for Draw...
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Winners Display (Hidden until draw) -->
+                <div id="winners-container" class="pt-6" style="display: none;">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4 text-center" data-key="lottery_winners_title">🎉 Automatic Distribution Log 🎉</h3>
+                    <div class="bg-white p-4 rounded-lg border border-gray-200 max-w-xl mx-auto">
+                        <ol id="winners-list" class="space-y-2 font-mono text-sm"></ol>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-3" data-key="lottery_mechanism_header">Scientific and Tamper-Proof Lottery Mechanism (VRF)</h3>
+                    <p class="text-gray-600 mb-4" data-key="lottery_mechanism_desc">The OOTD community lottery uses a Verifiable Random Function (VRF) mechanism based on Blockchain Block Hash to ensure absolute fairness and transparency.</p>
+                    <ul class="list-disc list-inside text-gray-600 ml-4">
+                        <li data-key="lottery_eligibility">Eligibility: Random snapshot taken 15 mins before draw.</li>
+                        <li data-key="lottery_anti_cheat">Anti-Cheating: Results automatically calculated via smart contract.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Whitepaper (Added Novel Section) -->
+        <section id="whitepaper" class="py-12">
+            <h2 class="text-4xl font-bold section-header" data-key="wp_header">5. OOTD Whitepaper (Core Abstract)</h2>
+            <div class="bg-secondary-bg p-8 rounded-xl shadow-lg border border-gray-100 space-y-6">
+
+                <!-- Abstract -->
+                <div class="border-b border-gray-200 pb-4">
+                    <h3 class="text-2xl font-semibold text-accent mb-2" data-key="wp_abstract">Abstract</h3>
+                    <p class="text-gray-600" data-key="wp_abstract_text">
+                        OOTD is a decentralized fashion ecosystem built on AI and blockchain technology. Through the OOTD Token and NFTs, we aim to solve the core pain points of traditional fashion—poor user experience, inefficient marketing, and data silos.
+                    </p>
+                </div>
+
+                <!-- Tokenomics -->
+                <div class="border-b border-gray-200 pb-4">
+                    <h3 class="text-2xl font-semibold text-accent mb-2" data-key="wp_tokenomics">Tokenomics (OOTD Token)</h3>
+                    <p class="text-gray-600" data-key="wp_tokenomics_text">
+                        The OOTD Token is the central currency of the OOTD ecosystem. Users acquire OOTD by purchasing value-added services (AI Style Advisor) or contributing high-quality data.
+                    </p>
+                </div>
+
+                <!-- ADDED: Novel Section -->
+                <div class="pt-2 text-center bg-white p-4 rounded-lg border border-gray-200">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2" data-key="wp_story_title">Official Novel: Blade of Data</h3>
+                    <p class="text-gray-600 mb-4 text-sm" data-key="wp_story_desc">Dive deep into the cyberpunk lore and the origin story of the OOTD universe.</p>
+                    <a href="https://www.wattpad.com/story/404832076-blade-of-data" target="_blank" class="inline-flex items-center text-accent hover:text-blue-800 font-bold underline transition">
+                        <span data-key="wp_story_btn">Read on Wattpad</span>
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- 6. Contact Us -->
+        <section id="contact" class="py-12">
+            <h2 class="text-4xl font-bold section-header" data-key="contact_header">6. Connect With Us</h2>
+            <div class="bg-secondary-bg p-8 rounded-xl shadow-lg border border-gray-100 text-center">
+                <p class="text-gray-600 mb-8 max-w-2xl mx-auto" data-key="contact_description">
+                    Stay up to date with the latest news, announcements, and community events. Follow our official channels.
+                </p>
+                <a href="https://twitter.com/OOTD_Web3" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full shadow-lg text-white bg-gray-800 hover:bg-gray-900 transition duration-300 transform hover:scale-[1.02] cta-button">
+                    <span data-key="contact_cta">Follow us on Twitter</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 border-t border-gray-200 mt-12 cursor-pointer hover:text-accent transition">
+        <p class="text-gray-500 text-sm" data-key="footer_copyright">© 2024 OOTD Ecosystem. All Rights Reserved. | Designed by Exploding Starball</p>
+    </footer>
+    
+    <!-- Toast Notification Element -->
+    <div id="toast-notification">
+        <span id="toast-message">Notification</span>
+    </div>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-bg': '#ffffff',
+                        'secondary-bg': '#f5f5f7',
+                        'accent': '#1e3a8a',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+
+        // --- I18N Data ---
+        const languageData = {
+            'en': {
+                'title': 'OOTD - The Rebirth: AI Fashion & Crypto Future',
+                'logo_subtitle': '| AI Fashion Ecosystem',
+                'nav_home': 'Home',
+                'nav_prototype': 'Prototype',
+                'nav_token': 'OOTD Token',
+                'nav_lottery': 'Token Lottery',
+                'nav_whitepaper': 'Whitepaper',
+                'nav_novel': 'Novel',
+                'nav_contact': 'Contact',
+                'hero_title': 'Revolutionize Fashion, Redefine Self-Worth',
+                'hero_subtitle': 'OOTD: THE REBIRTH',
+                'hero_description': 'OOTD is more than an App; it\'s an AI-driven, decentralized fashion community. Leveraging blockchain for data rights, OOTD Tokens incentivize every outfit share and design, transforming your virtual identity into a valuable digital asset.',
+                'hero_cta': 'Trade on DEX (DexScreener)',
+                'proto_header': '2. Hyper-Realistic 3D Body Scanning & Try-On',
+                'proto_description': 'The next generation of OOTD: Utilizing phone cameras for instant 3D body mapping, creating a personalized avatar for hyper-realistic and perfectly fitted virtual try-ons. This eliminates all sizing guesswork.',
+                'proto_step1_label': 'Input: Phone Camera Body Scan',
+                'proto_step2_label': '3D Body Mapping & Data Encryption',
+                'proto_step3_label': 'Personalized 3D Avatar Generation',
+                'proto_step4_label': 'Output: Hyper-Realistic 3D Try-On Result',
+                'proto_download_cta': 'Download on App Store & Google Play (Coming Soon)',
+                'token_header': '3. OOTD Token: The Gateway to the Ecosystem',
+                'token_overview': 'OOTD Tokenomics Overview',
+                'token_name': 'Token Name (Symbol):',
+                'token_supply': 'Total Supply (Total Supply):',
+                'token_price': 'Current Price (Simulated Price):',
+                'token_type': 'Token Type (Type):',
+                'token_fuel_desc': 'OOTD Tokens are the core fuel of the OOTD ecosystem, used for service payments, community incentives, and governance participation.',
+                'token_contract_address': 'Contract Address:',
+                'click_to_copy': '(Click to Copy)',
+                'token_network': 'Network:',
+                'token_live_buy_header': 'Trade $OOTD Now',
+                'btn_view_chart': 'Buy on DEX (DexScreener)',
+                'token_swap_placeholder': '[Swap Widget Placeholder: Actual Raydium/DEX Swap interface will load here once integrated. Connect your wallet to proceed.]',
+                'token_real_disclaimer': '*Important: OOTD is a utility token. Ensure your wallet is connected to the correct network (Solana/EVM) before initiating a swap.',
+                'lottery_header': '4. Community Incentive: OOTD Token Lottery',
+                'lottery_weekly_prize': 'Weekly Prize',
+                'lottery_prize_time': 'Drawing Time',
+                'lottery_time_desc': 'Every Tuesday 9:30 PM (New York Time)',
+                'lottery_participants': 'All OOTD Holders',
+                'lottery_entry': 'Automatic Entry',
+                'lottery_mechanism_header': 'Scientific and Tamper-Proof Lottery Mechanism (VRF)',
+                'lottery_mechanism_desc': 'The OOTD community lottery uses a Verifiable Random Function (VRF) mechanism based on Blockchain Block Hash to ensure absolute fairness and transparency.',
+                'lottery_eligibility': 'Eligibility: A random snapshot is taken 15 minutes before the draw. All users holding OOTD Tokens automatically receive an entry number; higher token holdings grant higher winning weight.',
+                'lottery_random_source': 'Random Source: The first block hash generated after 9:30 PM EST every Tuesday is used as the immutable random seed.',
+                'lottery_anti_cheat': 'Anti-Cheating: Results are automatically calculated and announced via smart contract. No one can predict or manipulate the outcome. Winnings are air-dropped directly to user wallets.',
+                'lottery_countdown_desc': 'Next Draw In:',
+                'lottery_draw_now': 'Draw Now!',
+                'lottery_winners_title': '🎉 Automatic Distribution Log 🎉',
+                'wp_header': '5. OOTD Whitepaper (Core Abstract)',
+                'wp_abstract': 'Abstract',
+                'wp_abstract_text': 'OOTD is a decentralized fashion ecosystem built on AI and blockchain technology. Through the OOTD Token and NFTs, we aim to solve the core pain points of traditional fashion—poor user experience, inefficient marketing, and data silos—to create a fair, transparent, and efficient digital fashion world.',
+                'wp_tokenomics': 'Tokenomics (OOTD Token)',
+                'wp_tokenomics_text': 'The OOTD Token is the central currency of the OOTD ecosystem. Users acquire OOTD by purchasing value-added services (AI Style Advisor) or contributing high-quality data. OOTD is used by brands to pay for API access and purchase precise advertising slots, while users use it for purchasing virtual clothing NFTs and redeeming exclusive discounts.',
+                'wp_solution': 'Core Solution',
+                'wp_b2c': 'B2C Revenue: Users pay for premium AI Style Advisor services (membership or pay-per-use).',
+                'wp_b2b': 'B2B Revenue: E-commerce giants pay API Access Fees to integrate OOTD’s virtual try-on engine.',
+                'wp_future': 'Future Proofing: Introducing 3D body scanning for hyper-realistic try-ons, solidifying our technological moat.',
+                'wp_story_title': 'Official Novel: Blade of Data',
+                'wp_story_desc': 'Dive deep into the cyberpunk lore and the origin story of the OOTD universe.',
+                'wp_story_btn': 'Read on Wattpad',
+                'contact_header': '6. Connect With Us',
+                'contact_description': 'Stay up to date with the latest news, announcements, and community events. Follow our official channels.',
+                'contact_cta': 'Follow us on Twitter',
+                'footer_copyright': '© 2024 OOTD Ecosystem. All Rights Reserved. | Designed by Exploding Starball'
+            },
+            'zh': {
+                'title': 'OOTD - 你看不懂的重生：AI时尚与加密未来',
+                'logo_subtitle': '| AI 时尚生态系统',
+                'nav_home': '主页',
+                'nav_prototype': '原型',
+                'nav_token': 'OOTD 代币',
+                'nav_lottery': '代币抽奖',
+                'nav_whitepaper': '白皮书',
+                'nav_novel': '官方小说',
+                'nav_contact': '联系',
+                'hero_title': '颠覆时尚，重塑自我价值',
+                'hero_subtitle': 'OOTD: THE REBIRTH',
+                'hero_description': 'OOTD 不只是 App，它是 AI 驱动的去中心化时尚社区。利用区块链技术保障用户数据权益，通过 OOTD 代币激励每一次穿搭分享与设计，将您的虚拟形象转化为有价值的数字资产。',
+                'hero_cta': '立即在 DEX 交易',
+                'proto_header': '2. 产品原型：超逼真 3D 人体扫描与试穿',
+                'proto_description': 'OOTD 的下一代核心技术：利用手机摄像头进行即时 3D 人体建模，生成专属虚拟形象，实现超逼真、完美贴合的虚拟试穿。彻底消除尺码顾虑。',
+                'proto_step1_label': '输入：手机摄像头人体扫描',
+                'proto_step2_label': '3D 身体建模与数据加密',
+                'proto_step3_label': '专属 3D 虚拟形象生成',
+                'proto_step4_label': '输出：超逼真 3D 试穿效果',
+                'proto_download_cta': 'App Store & Google Play 下载 (敬请期待)',
+                'token_header': '3. OOTD 代币：通往生态的门票',
+                'token_overview': 'OOTD Tokenomics 概览',
+                'token_name': '代币名称 (Symbol):',
+                'token_supply': '总供应量 (Total Supply):',
+                'token_price': '当前价格 (Simulated Price):',
+                'token_type': '代币类型 (Type):',
+                'token_fuel_desc': 'OOTD 代币是 OOTD 生态系统的核心燃料，用于支付服务、激励社区贡献和参与治理。',
+                'token_contract_address': '合约地址:',
+                'click_to_copy': '(点击复制)',
+                'token_network': '网络:',
+                'token_live_buy_header': '立即交易 $OOTD',
+                'btn_view_chart': '前往 DEX 交易 (DexScreener)',
+                'token_swap_placeholder': '[Swap Widget 占位符：实际 Raydium/DEX 兑换界面集成后将在此处加载。请连接您的钱包以继续。]',
+                'token_real_disclaimer': '*重要提示：OOTD为生态实用型代币。在发起兑换前，请确保您的钱包已连接到正确的网络（Solana/EVM）。',
+                'lottery_header': '4. 社区激励：OOTD 代币抽奖',
+                'lottery_weekly_prize': '每周奖金',
+                'lottery_prize_time': '准时开奖',
+                'lottery_time_desc': '每周二 9:30 PM (纽约时间)',
+                'lottery_participants': '所有 OOTD 持有者',
+                'lottery_entry': '自动参与',
+                'lottery_mechanism_header': '科学合理的抽奖机制 (Tamper-Proof Model)',
+                'lottery_mechanism_desc': 'OOTD 社区抽奖采用基于区块链区块哈希值（Block Hash）的可验证随机函数（VRF）机制，确保绝对的公平和透明。',
+                'lottery_eligibility': '参与资格：抽奖前 15 分钟进行随机快照（Snapshot），所有钱包中持有 OOTD 代币的用户自动获得抽奖编号，持币量越高，中奖权重越高。',
+                'lottery_random_source': '随机源：使用纽约时间每周二 9:30 PM 后生成的第一个区块哈希值作为不可篡改的随机种子。',
+                'lottery_anti_cheat': '防作弊：结果通过智能合约自动计算并公布，任何人无法预测或操纵开奖结果。中奖代币直接空投至用户钱包。',
+                'lottery_countdown_desc': '下次开奖倒计时:',
+                'lottery_draw_now': '立即开奖!',
+                'lottery_winners_title': '🎉 自动分发记录 🎉',
+                'wp_header': '5. OOTD 白皮书（核心摘要）',
+                'wp_abstract': '摘要',
+                'wp_abstract_text': 'OOTD是一个基于AI和区块链技术的去中心化时尚生态系统。通过OOTD代币和NFT，我们旨在解决传统时尚的核心痛点——用户体验差、营销效率低和数据孤岛——以创建一个公平、透明、高效的数字时尚世界。',
+                'wp_tokenomics': '代币经济学 (OOTD Token)',
+                'wp_tokenomics_text': 'OOTD代币是OOTD生态系统的核心流通货币。用户通过购买增值服务（AI穿搭顾问）或贡献高质量数据来获取OOTD。品牌方则使用OOTD支付API接入费和精准广告位，用户可用于购买虚拟服装NFT和兑换专属折扣。',
+                'wp_solution': '核心解决方案',
+                'wp_b2c': 'B2C 收入：用户支付费用以获取高级AI穿搭顾问服务（会员制或按次付费）。',
+                'wp_b2b': 'B2B 收入：电商巨头支付API接入费用，以整合OOTD的虚拟试穿引擎。',
+                'wp_future': '未来验证：引入3D人体扫描技术以实现超逼真的试穿效果，巩固我们的技术壁垒。',
+                'wp_story_title': '官方小说：Blade of Data',
+                'wp_story_desc': '深入了解 OOTD 宇宙的赛博朋克背景故事与起源。',
+                'wp_story_btn': '在 Wattpad 上阅读',
+                'contact_header': '6. 联系我们',
+                'contact_description': '获取最新消息、公告和社区活动。关注我们的官方频道。',
+                'contact_cta': '在推特上关注我们',
+                'footer_copyright': '© 2024 OOTD Ecosystem. All Rights Reserved. | Designed by 爆炸星星球'
+            }
+        };
+
+        let currentLang = 'en';
+        let isAdmin = false;
+
+        const mockParticipants = [
+            '0x1A2b...c3d4', '7iJk...LmnP', '0x5E6f...g7h8', '9oQr...StuV', '0x9W0x...y1z2',
+            '3AbC...dEfG', '0xH4iJ...kL5m', 'N6oP...qR7s', '0xT8uV...wX9y', 'Z0aB...cD1e'
+        ];
+        
+        // --- Toast Notification Logic ---
+        const showToast = (messageKey) => {
+            const toast = document.getElementById('toast-notification');
+            const messageSpan = document.getElementById('toast-message');
+            // If key exists in lang data, use it; else use text directly
+            messageSpan.innerText = languageData[currentLang][messageKey] || messageKey;
+            
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000); 
+        };
+
+        // --- Countdown Logic ---
+        const updateCountdown = () => {
+            const targetDay = 2; // Tuesday
+            const targetHour = 21;
+            const targetMinute = 30;
+            
+            const now = new Date();
+            let daysUntil = targetDay - now.getDay();
+            if (daysUntil < 0 || (daysUntil === 0 && now.getHours() > targetHour)) {
+                daysUntil += 7;
+            }
+
+            const targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntil, targetHour, targetMinute, 0);
+            let diff = targetDate - now;
+
+            const countdownElement = document.getElementById('lottery-countdown');
+            const btn = document.getElementById('draw-lottery-btn');
+
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                countdownElement.innerText = `${days}D : ${hours}H : ${minutes}M : ${seconds}S`;
+                
+                // If admin, enable button; else disabled
+                if(isAdmin) {
+                    btn.classList.remove('bg-gray-400', 'cursor-not-allowed');
+                    btn.classList.add('bg-accent', 'hover:bg-blue-800');
+                    btn.disabled = false;
+                    btn.innerText = "Admin Draw (Force)";
+                } else {
+                    btn.classList.add('bg-gray-400', 'cursor-not-allowed');
+                    btn.classList.remove('bg-accent', 'hover:bg-blue-800');
+                    btn.disabled = true;
+                    btn.innerText = "Waiting for Draw...";
+                }
+
+            } else {
+                countdownElement.innerText = "DRAWING NOW";
+                // Time reached, enable button for everyone (simulation) or just Admin
+                if(isAdmin) {
+                    btn.disabled = false;
+                    btn.classList.remove('bg-gray-400', 'cursor-not-allowed');
+                    btn.classList.add('bg-red-600', 'hover:bg-red-700', 'animate-pulse');
+                    btn.innerText = "LAUNCH AIRDROP";
+                }
+            }
+        };
+
+        // --- Lottery Logic ---
+        const runLottery = () => {
+            const container = document.getElementById('winners-container');
+            const list = document.getElementById('winners-list');
+            container.style.display = 'block';
+            list.innerHTML = '';
+            
+            const shuffled = mockParticipants.sort(() => 0.5 - Math.random());
+            const winners = shuffled.slice(0, 5);
+
+            winners.forEach((winner, index) => {
+                setTimeout(() => {
+                    const li = document.createElement('li');
+                    const txHash = '5x' + Math.random().toString(36).substring(7) + '...';
+                    
+                    li.className = 'winner-item p-3 bg-gray-50 rounded shadow-sm flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0 mb-2';
+                    li.innerHTML = `
+                        <div class="flex flex-col text-left w-full sm:w-auto">
+                             <div class="text-sm text-gray-800 font-mono"><span class="font-bold text-accent mr-2">#${index + 1}</span> ${winner}</div>
+                             <a href="#" class="text-xs text-blue-500 hover:underline" title="View on Solscan">Tx: ${txHash}</a>
+                        </div>
+                        <div class="flex items-center space-x-3 w-full sm:w-auto justify-between sm:justify-end">
+                            <span class="font-bold text-green-600">+1000 OOTD</span>
+                            <span class="text-xs font-bold text-white bg-green-500 px-2 py-1 rounded-full shadow-sm">✅ Auto-Sent</span>
+                        </div>
+                    `;
+                    list.appendChild(li);
+                }, index * 600);
+            });
+        };
+
+        // --- I18n Logic ---
+        const setLanguage = (lang) => {
+            currentLang = lang;
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (languageData[lang][key]) {
+                    el.innerText = languageData[lang][key];
+                }
+            });
+        };
+
+        // --- Init ---
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage(currentLang);
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+
+            // Smooth Scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const href = this.getAttribute('href');
+                    if (href && href !== '#') {
+                        document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // Lang Switch
+            document.getElementById('lang-switcher-en').addEventListener('click', () => setLanguage('en'));
+            document.getElementById('lang-switcher-zh').addEventListener('click', () => setLanguage('zh'));
+            
+            // Lottery Button
+            document.getElementById('draw-lottery-btn').addEventListener('click', () => {
+                if(isAdmin) {
+                    runLottery();
+                } else {
+                    showToast("Access Denied: Admin Only");
+                }
+            });
+
+            // Admin Mode Trigger (Footer 4 clicks + Logo)
+            const footer = document.querySelector('footer');
+            const logo = document.getElementById('logo');
+            let clicks = 0;
+
+            if(footer) {
+                footer.addEventListener('click', () => {
+                    clicks++;
+                    if(clicks > 4) clicks = 0;
+                });
+            }
+            if(logo) {
+                logo.addEventListener('click', () => {
+                    if(clicks === 4) {
+                        isAdmin = true;
+                        showToast("Admin Mode Enabled 🔓");
+                        updateCountdown(); // Refresh button state
+                    }
+                    clicks = 0;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
