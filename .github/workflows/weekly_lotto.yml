@@ -24,7 +24,10 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '18'
-
+    - name: List files (Debug)
+      run: |
+        pwd
+        ls -la
     # 3. 安装依赖包 (根据 package.json)
     - name: Install dependencies
       run: npm install
