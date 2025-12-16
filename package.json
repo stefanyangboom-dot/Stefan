@@ -1,19 +1,19 @@
 {
-  "name": "ootd-lottery",
+  "name": "ootd-lottery-bot",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "OOTD Auto Lottery Bot",
+  "main": "ootd_lottery_bot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ootd_lottery_bot.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
-    "@solana/spl-token": "^0.4.14",
-    "@solana/web3.js": "^1.98.4",
-    "bs58": "^6.0.0",
-    "dotenv": "^17.2.3"
+    "@solana/spl-token": "^0.3.9",
+    "@solana/web3.js": "^1.87.6",
+    "bs58": "^4.0.1",
+    "dotenv": "^16.3.1"
   }
 }
